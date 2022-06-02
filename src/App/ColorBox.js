@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Link } from 'react-router-dom';
 import { withStyles } from "@mui/styles";
-import styles from './Styles/ColorBoxStyle';
+import styles from '../Styles/ColorBoxStyle';
 
 class ColorBox extends Component {
     constructor(props) {

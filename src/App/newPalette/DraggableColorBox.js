@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { DeleteRounded } from "@mui/icons-material";
 import { withStyles } from '@mui/styles';
 import { SortableElement } from "react-sortable-hoc";
-import styles from '../Styles/DraggableBoxStyle';
+import styles from '../../Styles/DraggableBoxStyle';
 
 class DraggableColorBox extends Component {
 

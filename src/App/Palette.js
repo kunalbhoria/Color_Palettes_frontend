@@ -5,20 +5,30 @@ import PaletteFooter from "./PaletteFooter";
 import SnackBar from "./SnackBar";
 
 import { useParams } from "react-router-dom";
-import { selectPalette } from "./hooks/selectPalette";
+import { selectPalette } from "../Hooks/selectPalette";
+// import getSinglePalette from "../Hooks/getSinglePalette";
 
 import { withStyles } from "@mui/styles";
-import styles from './Styles/PaletteStyle';
+import styles from '../Styles/PaletteStyle';
 
-function Palette({ palettes, classes }) {
 
+function Palette({ classes }) {
     let params = useParams();
-    const { name, id, emoji, colors } = selectPalette({ task: 'PALETTE', paletteId: params.paletteId, allPalette: palettes });
+    let isLoading = true;
 
+    const {palette,error} = selectPalette({ task: 'PALETTE', paletteId: params.paletteId,type:params.type });
 
+    // if(error){throw new Error('Palette Not Found')}
+    if(!(palette.length<=1) && isLoading){
+        isLoading = false; 
+    }
+    
+    // console.log(palette)
+    let { name, id, emoji, colors } = palette
     const [colorFormat, setColorFormat] = useState('rgb')
     const [colorShade, setColorShade] = useState(400);
     const [snackBar, setSnackBar] = useState({ open: false });
+
 
     const changeShade = (shade) => {
         setColorShade(shade)
@@ -31,7 +41,12 @@ function Palette({ palettes, classes }) {
         setSnackBar({ open: false });
     }
 
-    return (<div className={classes.palette}>
+    return (<>
+        {isLoading ? <div className="loading-box">
+    <div className="loading-spinner"><div></div><div></div><div></div><div></div></div>
+    Loading
+</div>: 
+    <div className={classes.palette}>
 
         <PaletteHeader
             colorShade={colorShade}
@@ -48,17 +63,17 @@ function Palette({ palettes, classes }) {
                 name={color.name}
                 id={color.id}
                 showMore={true}
-                moreLink={`/palette/${id}/${color.id}`}
+                moreLink={`/palette/${params.type}/${id}/${color.id}`}
             />)}
         </section>
-
+ 
         <SnackBar
             snackBar={snackBar}
             handleSnackBarClose={handleSnackBarClose}
             colorFormat={colorFormat}
         />
-        <PaletteFooter name={name} emoji={emoji} />
-    </div>)
+        {!isLoading && <PaletteFooter name={name} emoji={emoji} />}
+    </div>}</>)
 }
 
 export default withStyles(styles)(Palette);

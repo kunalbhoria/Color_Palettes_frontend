@@ -5,7 +5,7 @@ import MenuItem from '@mui/material/MenuItem';
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
 import { Link } from 'react-router-dom';
-import styles from './Styles/PaletteHeaderStyle';
+import styles from '../Styles/PaletteHeaderStyle';
 // import './PaletteNav.css'
 
 function PaletteHeader(props) {

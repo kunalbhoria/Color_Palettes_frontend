@@ -1,4 +1,4 @@
-import  React ,{useState,useEffect} from 'react';
+import  React ,{useState,useEffect,useContext} from 'react';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -8,14 +8,18 @@ import DialogTitle from '@mui/material/DialogTitle';
 import { ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
 import {Picker} from 'emoji-mart';
 import 'emoji-mart/css/emoji-mart.css';
+import { UserPaletteContext } from "../../Context/userPaletteContext";
 
-
-function PaletteFormDialog({handleSaveNewPalette,palettes}) {
+function PaletteFormDialog({handleSaveNewPalette}) {
   const [open, setOpen] = useState(false);
   const [stage, setStage] = useState('FORM');
   const [emoji, setEmoji] = useState('✨');
   const [paletteName,setPaletteName] =useState('');
 
+
+  const {palettes,RefreshUserPalettes} = useContext(UserPaletteContext)
+
+  // const palettes = useContext(PaletteContext);
   const setStageToEmoji=()=>{
     setStage('EMOJI')
   }
@@ -35,12 +39,11 @@ function PaletteFormDialog({handleSaveNewPalette,palettes}) {
     setPaletteName(e.target.value);
   };
   const handleChangeEmoji=(newEmoji)=>{
-    // console.log(newEmoji);
     setEmoji(newEmoji.native);
   }
 
   const saveNewPalette = ()=>{
-    handleSaveNewPalette({paletteName,emoji});
+    handleSaveNewPalette({paletteName,emoji},RefreshUserPalettes);
     setStage('')
   }
 
@@ -56,11 +59,10 @@ function PaletteFormDialog({handleSaveNewPalette,palettes}) {
       <Button variant="contained"  color='secondary' onClick={handleClickOpen}>
         Save
       </Button>
-      <Dialog open={open && stage == 'EMOJI'} onClose={handleClose}>
+      <Dialog open={open && stage == 'EMOJI'} onKeyPress={saveNewPalette} onClose={handleClose}>
       <DialogTitle>Select emoji for your color palette</DialogTitle>
-      <Picker  onSelect={handleChangeEmoji} title={emoji} emoji='' />
+      <Picker  onSelect={handleChangeEmoji} title={emoji}  emoji='' />
       <DialogActions>
-        {/* <span style={{margin:'0 20px'}}>{emoji}</span> */}
       <Button 
            variant="outlined" 
            color="secondary"
@@ -88,7 +90,9 @@ function PaletteFormDialog({handleSaveNewPalette,palettes}) {
                       margin='normal'
                       autoFocus
                       validators={['required','isPaletteNameUnique']}
+                      // validators={['required']}
                       errorMessages={['Pallete Name is required','Name already used']}
+                      // errorMessages={['Pallete Name is required']}
                       />
                   
         </DialogContent>

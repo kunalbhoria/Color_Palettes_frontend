@@ -1,13 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,memo } from "react";
 import { ChromePicker } from 'react-color';
 import { withStyles } from "@mui/styles";
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import Button from '@mui/material/Button';
-import styles from '../Styles/ColorPickerStyle';
+import styles from '../../Styles/ColorPickerStyle';
 
 
 function ColorPicker(props) {
-
    const { handleAddColor, Colors, isPaletteFull, classes } = props;
 
    const [currentColor, setCurrentColor] = useState('red');
@@ -65,4 +64,4 @@ function ColorPicker(props) {
    </div>);
 }
 
-export default withStyles(styles)(ColorPicker);
+export default withStyles(styles)(memo(ColorPicker));

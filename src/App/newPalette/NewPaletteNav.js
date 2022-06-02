@@ -11,7 +11,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import PaletteFormDialog from './PaletteFormDialog';
 import { withStyles } from "@mui/styles";
 import { Link } from "react-router-dom";
-import styles from '../Styles/NewPaletteNavStyle';
+import styles from '../../Styles/NewPaletteNavStyle';
 
 
 const drawerWidth = 350;

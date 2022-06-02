@@ -1,4 +1,3 @@
-import { red } from "react-color/lib/helpers/color";
 
  export default {
     root:{

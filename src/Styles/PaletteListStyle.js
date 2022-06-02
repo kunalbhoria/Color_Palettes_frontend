@@ -2,7 +2,22 @@ import sizeHelper from './sizeHelper';
 import backgroundSvg from '../background.svg';
 
 export default {
-
+    "@global": {
+        ".fade-enter": {
+          opacity: 0
+        },
+        ".fade-enter-active": {
+          opacity: 1,
+          transition: "opacity 500ms ease-out"
+        },
+        ".fade-exit": {
+          opacity: 1
+        },
+        ".fade-exit-active": {
+          opacity: 0,
+          transition: "opacity 500ms ease-out"
+        },
+    },
     root: {
         background: `url(${backgroundSvg})`,
         backgroundAttachment: 'fixed',
@@ -13,6 +28,14 @@ export default {
         alignItems: 'flex-start',
         justifyContent: 'center'
 
+    },
+    loginBox:{
+    position: 'absolute',
+    top: '17px',
+    right: '10px',
+    '& button':{
+        boxShadow: '2px 2px 5px midnightblue'
+    }
     },
     container: {
         width: '52%',

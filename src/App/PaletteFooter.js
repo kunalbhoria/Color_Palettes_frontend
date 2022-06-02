@@ -1,8 +1,8 @@
-import React, { Component } from "react";
+import React, { Component ,PureComponent } from "react";
 import { withStyles } from '@mui/styles';
-import styles from './Styles/PaletteFooterStyle';
+import styles from '../Styles/PaletteFooterStyle';
 
-class PaletteFooter extends Component {
+class PaletteFooter extends PureComponent {
     render() {
         const { name, emoji } = this.props;
         return (<footer className={this.props.classes.paletteFooter}>
